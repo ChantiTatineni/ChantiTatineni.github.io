@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charansai Tatineni | Product Engineer</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-gradient: linear-gradient(45deg, #7928CA, #FF0080);
+            --accent-color-solid: #FF0080;
+            --font-stack: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Bebas Neue', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJyB2aWV3Qm94PScwIDAgMjAwIDIwMCc+PGZpbHRlciBpZD0nbic+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9JzAuNjUnIG51bW9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9J3VybCgjbiknIG9wYWNpdHk9JzAuMDUnLz48L3N2Zz4=');
+            opacity: 0.15;
+            z-index: 9999;
+        }
+
+        .cursor {
+            width: 20px; height: 20px;
+            border: 1px solid var(--text-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease, background 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        .cursor.grow { transform: scale(2.5); background: var(--text-primary); border: none; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid var(--accent-color-solid);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 6rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .hero-sub { animation: fadeIn 0.8s ease-in 0.4s both; }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+        }
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: #333;
+            margin-left: 1.5rem;
+        }
+
+        p.lead { font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; }
+        .text-secondary { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .inline-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 2px solid var(--accent-color-solid);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+        .inline-link:hover {
+            box-shadow: inset 0 -20px 0 var(--accent-color-solid);
+            color: white;
+            border-color: transparent;
+        }
+
+        section { margin-bottom: 8rem; }
+
+        /* --- Stack --- */
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .skill-block {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #252525;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .skill-block:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-color-solid);
+            box-shadow: 0 10px 30px -10px rgba(255, 0, 128, 0.3);
+        }
+        .skill-category-title {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .skill-pill {
+            display: inline-block;
+            background: #252525;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        /* --- Experience Timeline --- */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7928CA, #FF0080, #252525);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.5rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid #252525;
+            transition: border-color 0.3s ease;
+        }
+        .timeline-item:hover { border-color: #444; }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -2.55rem;
+            top: 2rem;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: 2px solid var(--bg-color);
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-color-solid);
+            background: rgba(255,0,128,0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+        .timeline-company {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .timeline-bullets {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline-bullets li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .timeline-bullets li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color-solid);
+        }
+
+        /* --- Project Cards --- */
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            border: 1px solid #252525;
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color-solid);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+        }
+        .project-visual {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(-45deg, #1a0533, #3d0070, #7928CA, #FF0080, #ff6b35);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .project-visual-icon {
+            font-size: 5rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .project-content { padding: 2.5rem; }
+        .project-content h3 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+        .tech-tag {
+            display: inline-block;
+            background: #333;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .project-link-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: white;
+            background: var(--card-bg);
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+            overflow: hidden;
+            border: 1px solid var(--text-primary);
+        }
+        .project-link-btn::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.3s ease-out;
+        }
+        .project-link-btn:hover::before { transform: scaleX(1); }
+        .project-link-btn:hover { border-color: transparent; }
+
+        /* --- Contact --- */
+        .contact-links-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            list-style: none;
+        }
+        .contact-link-item a {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .contact-link-item a:hover {
+            color: var(--text-primary);
+            -webkit-text-stroke: 0px;
+        }
+        .contact-link-item a::after {
+            content: "●";
+            position: absolute;
+            font-size: 1rem;
+            color: var(--accent-color-solid);
+            top: -10px; right: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .contact-link-item a:hover::after {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        /* stat strip */
+        .stat-strip {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .stat-item {
+            text-align: left;
+        }
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2rem; }
+            body { padding: 1rem; }
+            .cursor { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor"></div>
+
+<main class="container">
+
+    <!-- HERO -->
+    <header style="margin-top: 4rem; margin-bottom: 8rem;">
+        <h1>Charansai Tatineni. ⚙️</h1>
+        <div class="hero-sub">
+            <p class="lead">Building real things that survive the real world.</p>
+            <p class="text-secondary" style="max-width: 650px;">
+                Based in <strong>Holyoke, MA</strong>. Obsessed with mechanical precision, DFM, and engineering products that actually hold up on the shop floor.
+                <br><br>
+                Currently: <span style="color: var(--text-primary); font-weight: 700;">Product Design Engineer @ International Container Co LLC</span>
+            </p>
+
+            <div class="stat-strip" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-item">
+                    <div class="stat-number" style="font-size:2rem;">Good Enough</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10%</div>
+                    <div class="stat-label">Cost Reduction Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Industries Shipped</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8–10</div>
+                    <div class="stat-label">Projects Managed at Once</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STACK -->
+    <section>
+        <h2 data-aos="fade-right">The Stack 🛠️</h2>
+        <div class="stack-grid">
+            <div class="skill-block" data-aos="zoom-in-up" data-aos-delay="100">
+                <span class="skill-category-title">⚙️ Mechanical & Manufacturing</span>
+                <div>
+                    <span class="skill-pill">GD&T / ASME</span>
+                    <span class="skill-pill">BOMs & ECN/ECO</span>
+                    <span class="skill-pill">ISO 9001</span>
+                    <span class="skill-pill">AWS D1.1 Weldments</span>
+                    <span class="skill-pill">DFM</span>
+                </div>
+            </div>
+            <div class="skill-block" data-aos="zoom-in-up" data-aos-delay="200">
+                <span class="skill-category-title">🖥️ CAD & Analysis</span>
+                <div>
+                    <span class="skill-pill">Autodesk Inventor</span>
+                    <span class="skill-pill">Onshape</span>
+                    <span class="skill-pill">Autodesk Vault</span>
+                    <span class="skill-pill">FEA</span>
+                    <span class="skill-pill">Sheet Metal</span>
+                    <span class="skill-pill">G-code / Additive Mfg</span>
+                </div>
+            </div>
+            <div class="skill-block" data-aos="zoom-in-up" data-aos-delay="300">
+                <span class="skill-category-title">📊 Systems & Methods</span>
+                <div>
+                    <span class="skill-pill">Global Shop ERP/MRP</span>
+                    <span class="skill-pill">Lean / Six Sigma Green Belt</span>
+                    <span class="skill-pill">5 Whys / RCA</span>
+                    <span class="skill-pill">DOE</span>
+                    <span class="skill-pill">Gantt Charts</span>
+                    <span class="skill-pill">MS Office & Excel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section>
+        <h2 data-aos="fade-right">Experience 📋</h2>
+        <div class="timeline">
+
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="timeline-header">
+                    <h3>Product Design Engineer</h3>
+                    <span class="timeline-date">Apr 2025 – Present</span>
+                </div>
+                <p class="timeline-company">International Container Co LLC — Holyoke, MA</p>
+                <ul class="timeline-bullets">
+                    <li>Highly Skilled in reverse engineer in custom products according to customer requirements.</li>
+                    <li>Built full 3D parametric models in Inventor with complete GD&T, weld symbols, tolerances, and build notes used directly on the shop floor.</li>
+                    <li>Managed ERP/MRP releases in Global Shop Solutions — items, BOMs, routings, and revision-controlled documentation.</li>
+                    <li>Created Stage Processed ECNs to drive controlled design updates and maintain drawing/BOM accuracy.</li>
+                    <li>Designed and corrected tool jigs, robot lines, and weld fixtures aligned to product specs.</li>
+                    <li>Resolved tolerance stack-up and fitment issues during fabrication; implemented DFM improvements to cut rework and protect delivery timelines.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
+                <div class="timeline-header">
+                    <h3>Design Engineer</h3>
+                    <span class="timeline-date">Aug 2024 – Apr 2025</span>
+                </div>
+                <p class="timeline-company">CloudData Technology — Delaware</p>
+                <ul class="timeline-bullets">
+                    <li>Designed hydraulic/pneumatic pumps and assemblies in Inventor & Onshape for new products and customer-specific configurations.</li>
+                    <li>Released manufacturing-ready drawings using GD&T and DFM principles.</li>
+                    <li>Applied DOE to verify material, dimensional, and process variations during design validation.</li>
+                    <li>Translated parametric models into G-code and manufactured functional prototypes via additive manufacturing.</li>
+                    <li>Executed design verification testing (fit, function, load, cycle) and implemented corrective design changes.</li>
+                    <li>Resolved production and field issues using RCA (5 Whys); provided technical support to manufacturing and quality teams.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="timeline-header">
+                    <h3>Mechanical Design Engineer</h3>
+                    <span class="timeline-date">Jan 2019 – Apr 2022</span>
+                </div>
+                <p class="timeline-company">Prakasa Spectro Cast Pvt Ltd — India</p>
+                <ul class="timeline-bullets">
+                    <li>Led end-to-end product development of automotive/truck chassis and mobile installation components from requirements through production release.</li>
+                    <li>Designed structural weldments and mechanical assemblies; performed FEA (static, stress) to guide design decisions.</li>
+                    <li>Wrote and maintained product specifications aligned with ISO 9001 QMS requirements.</li>
+                    <li>Implemented Lean initiatives to simplify fabrication processes, improving manufacturability and reducing cost.</li>
+                    <li>Achieved ~10% cost reduction through fabrication-focused design and process improvements.</li>
+                    <li>Designed equipment with safety and OSHA considerations — guarding, pinch-point mitigation, and compliance.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURED WORK -->
+    <section>
+        <h2 data-aos="fade-right">Featured Work 🚀</h2>
+
+        <article class="project-card" data-aos="fade-up" data-aos-duration="1000">
+            <div class="project-visual">
+                <span class="project-visual-icon">🏗️</span>
+            </div>
+            <div class="project-content">
+                <h3>Heavy-Industrial Welded Equipment Design</h3>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">Designed customer-specific heavy-industrial welded assemblies, sheet-metal components, and hydraulic systems — fully documented with GD&T and ready for shop-floor fabrication the day they're released.</p>
+                <p class="text-secondary" style="margin-top: 0.5rem;">The Flex: Managing 8–10 concurrent projects in ERP/MRP, resolving tolerance stack-ups in real time to keep production on schedule.</p>
+                <div>
+                    <span class="tech-tag">Inventor</span>
+                    <span class="tech-tag">GD&T</span>
+                    <span class="tech-tag">Global Shop ERP</span>
+                    <span class="tech-tag">ECN/ECO</span>
+                </div>
+                <a href="/cdn-cgi/l/email-protection#44272c2536252a37252d3025302d2a212a2d7671042329252d286a272b29" class="project-link-btn">👉 Ask About This Work</a>
+            </div>
+        </article>
+
+        <article class="project-card" data-aos="fade-up" data-aos-duration="1000">
+            <div class="project-visual" style="background: linear-gradient(-45deg, #0a2342, #0d4f8b, #1a8fe3, #23d5ab); background-size: 400% 400%; animation: gradientBG 10s ease infinite;">
+                <span class="project-visual-icon">⚡</span>
+            </div>
+            <div class="project-content">
+                <h3>Hydraulic & Pneumatic Pump Development</h3>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">Designed hydraulic and pneumatic pump assemblies from concept to validated prototype — applying DOE to confirm dimensional and process variation, then manufacturing functional prototypes directly from parametric models.</p>
+                <p class="text-secondary" style="margin-top: 0.5rem;">The Flex: Closed the design-to-prototype loop by translating Inventor models into G-code and running fit, function, load, and cycle testing in-house.</p>
+                <div>
+                    <span class="tech-tag">Onshape</span>
+                    <span class="tech-tag">DOE</span>
+                    <span class="tech-tag">FEA</span>
+                    <span class="tech-tag">Additive Mfg</span>
+                    <span class="tech-tag">DFM</span>
+                </div>
+                <a href="/cdn-cgi/l/email-protection#ddbeb5bcafbcb3aebcb4a9bca9b4b3b8b3b4efe89dbab0bcb4b1f3beb2b0" class="project-link-btn">👉 View Details</a>
+            </div>
+        </article>
+
+        <article class="project-card" data-aos="fade-up" data-aos-duration="1000">
+            <div class="project-visual" style="background: linear-gradient(-45deg, #1a0a00, #5c1e00, #c84b00, #ff8c42); background-size: 400% 400%; animation: gradientBG 8s ease infinite;">
+                <span class="project-visual-icon">🚗</span>
+            </div>
+            <div class="project-content">
+                <h3>Automotive Chassis & 10% Cost Reduction</h3>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">Led end-to-end development of automotive and truck chassis components — from requirements capture through FEA validation and production release. Drove Lean initiatives that cut fabrication costs by approximately 10%.</p>
+                <p class="text-secondary" style="margin-top: 0.5rem;">The Flex: Wrote ISO 9001-aligned product specs and trained cross-functional teams, making the design changes stick across manufacturing and quality.</p>
+                <div>
+                    <span class="tech-tag">FEA</span>
+                    <span class="tech-tag">Lean</span>
+                    <span class="tech-tag">ISO 9001</span>
+                    <span class="tech-tag">Weldments</span>
+                    <span class="tech-tag">OSHA</span>
+                </div>
+                <a href="/cdn-cgi/l/email-protection#6e0d060f1c0f001d0f071a0f1a07000b00075c5b2e09030f0702400d0103" class="project-link-btn">👉 See the Numbers</a>
+            </div>
+        </article>
+    </section>
+
+    <!-- CONTACT -->
+    <footer style="padding-bottom: 4rem;">
+        <h2 data-aos="fade-right">Hit My Line 📲</h2>
+        <p class="lead" data-aos="fade-up">Got an engineering challenge? Let's solve it.</p>
+
+        <ul class="contact-links-list" style="margin-top: 3rem;">
+            <li class="contact-link-item" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://www.linkedin.com/in/charansaitatineni" target="_blank" class="hover-trigger">LinkedIn</a>
+            </li>
+            <li class="contact-link-item" data-aos="fade-up" data-aos-delay="200">
+                <a href="/cdn-cgi/l/email-protection#07646f6675666974666e7366736e6962696e353247606a666e6b2964686a" class="hover-trigger">Email</a>
+            </li>
+            <li class="contact-link-item" data-aos="fade-up" data-aos-delay="300">
+                <a href="tel:7408035781" class="hover-trigger">Phone</a>
+            </li>
+        </ul>
+
+        <p class="text-secondary" style="margin-top: 4rem; font-size: 0.875rem;" data-aos="fade-in">
+            © 2025 Charansai Tatineni. Built with precision.
+        </p>
+    </footer>
+
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, offset: 150 });
+</script>
+<script>
+    const cursor = document.querySelector('.cursor');
+    const hoverTriggers = document.querySelectorAll('a, button, .project-card, .skill-block, .timeline-item');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e
